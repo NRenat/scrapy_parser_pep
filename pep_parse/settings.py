@@ -22,7 +22,7 @@ FILE_FORMAT = 'csv'
 FEEDS = {
     f'{RESULTS}/pep_%(time)s.csv': {
         'format': FILE_FORMAT,
-        'fields': ('number', 'name', 'status')
+        'fields': ['number', 'name', 'status'],
     }
 }
 
