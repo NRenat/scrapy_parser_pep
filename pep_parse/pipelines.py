@@ -6,13 +6,9 @@ from pep_parse.settings import BASE_DIR, DATETIME_FORMAT, FILE_FORMAT, RESULTS
 
 
 class PepParsePipeline:
-    def __init__(self):
-        self.total_statuses = None
-        self.status_counter = None
 
     def open_spider(self, spider):
         self.status_counter = Counter()
-        self.total_statuses = 0
 
     def process_item(self, item, spider):
         status = item.get('status')
@@ -32,8 +28,5 @@ class PepParsePipeline:
         with open(filename, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(['Статус', 'Количество'])
-
-            for status, count in self.status_counter.items():
-                writer.writerow([status, count])
-
+            writer.writerows(self.status_counter.items())
             writer.writerow(['Total', str(self.total_statuses)])
